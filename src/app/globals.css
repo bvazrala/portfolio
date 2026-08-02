@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/* next-themes writes .dark on <html>, so opt out of the media-query default */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Palette. Instrument-panel amber on cool ink — warm accent, cold ground.
+   Graph community colours are the Okabe-Ito categorical set, which stays
+   distinguishable to colour-blind readers in both themes.
+   --------------------------------------------------------------------------- */
+:root {
+  --bg: #f7f8f4;
+  --panel: #edefe9;
+  --panel-2: #e4e7df;
+  --ink: #12151a;
+  --ink-2: #3d4650;
+  --muted: #5c6570;
+  --rule: #dcdfd6;
+  --rule-soft: #e6e8e0;
+
+  --accent: #a2670a;
+  --accent-bright: #d98f10;
+  --accent-wash: rgb(217 143 16 / 0.10);
+
+  --c-model: #0072b2;
+  --c-device: #00795c;
+  --c-interface: #a8437f;
+  --c-practice: #6f7883;
+
+  --grid: rgb(18 21 26 / 0.035);
+}
+
+.dark {
+  --bg: #0b0e13;
+  --panel: #12161d;
+  --panel-2: #171c25;
+  --ink: #e9edf2;
+  --ink-2: #b9c2cd;
+  --muted: #8b95a2;
+  --rule: #1f2630;
+  --rule-soft: #191f28;
+
+  --accent: #f0b033;
+  --accent-bright: #f0b033;
+  --accent-wash: rgb(240 176 51 / 0.12);
+
+  --c-model: #56b4e9;
+  --c-device: #23c39a;
+  --c-interface: #e093c0;
+  --c-practice: #7c8794;
+
+  --grid: rgb(233 237 242 / 0.035);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+
+  --font-sans: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent-bright);
+    color: #0b0e13;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Archivo carries a width axis, so the name and section headings run
+     slightly expanded while everything else sits at normal width. */
+  .font-display {
+    font-variation-settings: "wdth" 112, "wght" 700;
+    letter-spacing: -0.03em;
+  }
+
+  .font-display-tight {
+    font-variation-settings: "wdth" 106, "wght" 620;
+    letter-spacing: -0.02em;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .surface-grid {
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .rise {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.75s cubic-bezier(0.19, 0.72, 0.24, 1) forwards;
+  }
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes flash {
+  0% {
+    background-color: var(--accent-wash);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.flash {
+  animation: flash 1.5s ease-out;
+}
