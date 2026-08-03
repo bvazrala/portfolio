@@ -89,6 +89,30 @@ export const projects: Project[] = [
     tags: ["cpp", "embedded", "python", "cloud"],
   },
   {
+  id: "rl-driving",
+  title: "Yield",
+  short: "RL driving",
+  subtitle: "What safety costs in speed",
+  repo: null,
+  domain: "model",
+  year: "2026",
+  dates: "Summer 2026 · CS 175",
+  status: "In progress",
+  lead: "Training a family of driving agents that differ only in how much they are penalised for crashing, then measuring what each one trades away.",
+  impact: [
+    "Five reward settings, three seeds each",
+    "200 held out episodes per agent",
+    "Output is a speed versus collision tradeoff curve",
+  ],
+  bullets: [
+    "Training DQN agents in highway-env, where surrounding traffic follows the Intelligent Driver and MOBIL models.",
+    "Holding hyperparameters and step budget fixed so the reward specification is the only variable.",
+    "Testing zero shot transfer to merge and roundabout scenarios the agents never trained on.",
+  ],
+  stack: ["Python", "PyTorch", "Stable-Baselines3", "Gymnasium", "highway-env"],
+  tags: ["python", "ml", "rl"],
+  },
+  {
     id: "big5",
     title: "Big Five graphical models",
     short: "Big Five graph",
@@ -115,7 +139,7 @@ export const projects: Project[] = [
     title: "ASL computer control",
     short: "ASL control",
     subtitle: "Typing and media control from hand signs",
-    repo: null,
+    repo: "https://github.com/eric-vo/signpc",
     domain: "interface",
     year: "2026",
     dates: "Apr 2026 · LA Hacks",
@@ -213,15 +237,51 @@ export const education = [
 ];
 
 export const coursework = [
-  "Data Structures",
-  "Algorithms",
-  "Machine Learning & Data Mining",
-  "Artificial Intelligence",
-  "Information Retrieval",
-  "Data Management",
-  "Software Engineering",
-  "Probability & Statistics",
-  "Linear Algebra",
+  {
+    group: "AI & machine learning",
+    items: [
+      "CS 171 Artificial Intelligence",
+      "CS 175 Project in AI",
+      "CS 178 Machine Learning & Data Mining",
+      "CS 179 Graphical Models",
+      "SWE 119 AI Engineering Software",
+    ],
+  },
+  {
+    group: "Systems & data",
+    items: [
+      "CS 147 Internet of Things",
+      "ICS 53 Principles in System Design",
+      "CS 122A Data Management",
+      "CS 121 Information Retrieval",
+    ],
+  },
+  {
+    group: "Theory & math",
+    items: [
+      "CS 161 Design & Analysis of Algorithms",
+      "CS 177 Applications of Probability",
+      "STATS 67 Probability & Statistics",
+      "Linear Algebra",
+      "Discrete Mathematics",
+    ],
+  },
+  {
+    group: "Software engineering & HCI",
+    items: [
+      "IN4MATX 43 Software Engineering",
+      "IN4MATX 131 Human Computer Interaction",
+      "IN4MATX 133 User Interaction Software",
+    ],
+  },
+  {
+    group: "Business",
+    items: [
+      "MGMT 105 Marketing",
+      "MGMT 159 Analysis of Marketing Data",
+      "MGMT 190 Consulting",
+    ],
+  },
 ];
 
 export const skills: { group: string; items: string[] }[] = [

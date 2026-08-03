@@ -41,9 +41,21 @@ export default function Experience() {
               </div>
             </div>
           ))}
-          <div className="grid gap-x-8 gap-y-1 md:grid-cols-[minmax(0,11rem)_minmax(0,1fr)]">
-            <p className="font-mono text-[0.72rem] uppercase tracking-[0.1em] text-muted">Coursework</p>
-            <p className="text-[0.93rem] leading-relaxed text-ink-2">{coursework.join(" · ")}</p>
+          <div className="grid gap-x-8 gap-y-3 md:grid-cols-[minmax(0,11rem)_minmax(0,1fr)]">
+  <p className="font-mono text-[0.72rem] uppercase tracking-[0.1em] text-muted">
+    Coursework
+  </p>
+
+            <div className="space-y-4">
+              {coursework.map((group) => (
+                <div key={group.group}>
+                  <p className="label text-muted">{group.group}</p>
+                  <p className="mt-1 text-[0.93rem] leading-relaxed text-ink-2">
+                    {group.items.join(" · ")}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

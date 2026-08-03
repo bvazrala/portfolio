@@ -38,7 +38,11 @@ export default function Work() {
             <h3 className="font-display-tight text-[clamp(1.35rem,2.4vw,1.8rem)] leading-tight">
               {project.repo ? (
                 <a
-                  href={`https://github.com/${profile.github}/${project.repo}`}
+                  href={
+                    project.repo.startsWith("http")
+                      ? project.repo
+                      : `https://github.com/${profile.github}/${project.repo}`
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="decoration-rule underline-offset-4 hover:underline hover:decoration-current"
