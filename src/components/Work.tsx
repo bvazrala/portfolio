@@ -6,7 +6,6 @@ export default function Work() {
     <Section
       id="work"
       title="Selected work"
-      lede="Four projects worth opening. Every public repository is listed in the next section."
     >
       <div className="space-y-6">
         {projects.map((project) => (

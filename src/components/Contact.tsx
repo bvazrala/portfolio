@@ -12,7 +12,7 @@ export default function Contact() {
   return (
     <Section id="contact" title="Get in touch">
       <p className="mb-10 max-w-[46ch] font-display text-[clamp(1.8rem,4vw,3rem)] leading-[1.05]">
-        Happy to talk about embedded work, graphical models, or anything above.
+        Happy to chat about my work and collaborate.
       </p>
 
       <dl className="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:max-w-2xl">
@@ -34,9 +34,7 @@ export default function Contact() {
       </dl>
 
       <p className="mt-16 max-w-[62ch] font-mono text-[0.7rem] leading-relaxed text-muted">
-        Built with Next.js and Tailwind. Figure 1 is a force-directed layout solved at build time and drawn with
-        three.js; its labels are DOM buttons, so they stay keyboard-reachable. Repository data comes from the GitHub
-        REST API, fetched server-side and revalidated hourly. Community colours are the Okabe–Ito categorical palette.
+        Built with Next.js, TypeScript, Tailwind, and three.js.
       </p>
     </Section>
   );

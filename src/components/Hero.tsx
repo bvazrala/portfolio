@@ -6,7 +6,6 @@ export default function Hero() {
       <div className="grid items-center gap-10">
         <div>
           <p className="label rise mb-6 flex flex-wrap gap-x-3 gap-y-1 text-muted">
-            <span>{profile.role}</span>
             <span aria-hidden="true" className="text-rule">/</span>
             <span>Class of 2027</span>
             <span aria-hidden="true" className="text-rule">/</span>
@@ -20,10 +19,6 @@ export default function Hero() {
               </span>
             ))}
           </h2>
-
-          <p className="rise mb-8 max-w-[52ch] text-[1.05rem] leading-relaxed text-ink-2" style={{ animationDelay: "0.16s" }}>
-            {profile.intro}
-          </p>
 
           {profile.status ? (
             <p className="rise mb-8 inline-flex items-center gap-2.5 font-mono text-[0.78rem] text-ink-2" style={{ animationDelay: "0.24s" }}>

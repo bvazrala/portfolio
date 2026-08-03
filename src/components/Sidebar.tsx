@@ -130,7 +130,7 @@ export function Sidebar() {
   const active = useScrollSpy();
 
   return (
-    <aside className="fixed left-0 top-0 hidden h-screen w-[clamp(320px,30vw,420px)] flex-col justify-between px-10 py-12 lg:flex xl:px-14">
+    <aside className="fixed left-0 top-0 hidden h-screen w-[clamp(320px,30vw,420px)] flex-col justify-start gap-16 px-10 py-12 lg:flex xl:px-14">
       <div>
         <a href="#intro" className="block">
           <h1 className="font-display text-[clamp(2rem,2.6vw,2.75rem)] leading-[0.95]">{profile.name}</h1>
@@ -139,7 +139,7 @@ export function Sidebar() {
         <p className="mt-5 max-w-[34ch] text-sm leading-relaxed text-muted">{profile.tagline}</p>
       </div>
 
-      <div className="my-8">
+      <div>
         <NavList active={active} />
         <a
           href={profile.resume}

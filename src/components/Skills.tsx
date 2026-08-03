@@ -3,7 +3,7 @@ import { skills } from "@/content/profile";
 
 export default function Skills() {
   return (
-    <Section id="skills" title="Toolkit" lede="Ordered by how often it ends up in a repository, not by how it looks on a list.">
+    <Section id="skills" title="Toolkit">
       <dl className="border-t border-rule">
         {skills.map((group) => (
           <div

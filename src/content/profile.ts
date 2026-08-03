@@ -26,9 +26,6 @@ export const profile = {
 
   headline: ["I love to build.", "Always ready to learn."],
 
-  intro:
-    "An alarm clock that briefs you without handing you a phone. A model that finds five personality traits hiding in fifty survey questions. A webcam that types from hand signs.",
-
   about: [
     "I'm a senior at UC Irvine studying computer science and business. Most of what I build sits between a sensor and a decision — firmware that has to keep working when the network doesn't, models that have to explain themselves, interfaces that have to feel obvious.",
     "I transferred in from Irvine Valley College, where I ran the CS club and grew it from 700 to 900 members by teaching the things classes skipped: Git, the command line, how a network actually moves a packet. That's still the work I like best — taking something opaque and making it usable by someone who didn't build it.",
@@ -253,7 +250,6 @@ export const skills: { group: string; items: string[] }[] = [
 /* -------------------------------------------------------------------------- */
 
 export const sections = [
-  { id: "intro", label: "Intro" },
   { id: "about", label: "About" },
   { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
