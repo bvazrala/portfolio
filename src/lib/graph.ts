@@ -1,18 +1,70 @@
+import data from "@/content/big-five-graph.json";
+
 /* ============================================================================
  * The hero figure.
  *
- * Nodes are projects. An edge means two projects share a language or a problem.
- * Positions come from a small force simulation — repulsion between every pair,
- * springs along edges, a weak pull toward the origin — seeded with a fixed
- * number so the layout is byte-identical on every render.
+ * 50 personality survey items and the dependencies a regularised Ising model
+ * learned between them, fit for CS 179. Running community detection on that
+ * learned graph recovered all five traits exactly, which is what the colours
+ * mark. Edge weight carries its sign: positive means two items reinforce each
+ * other, negative means they pull apart.
  *
- * All of this is pure, so it runs once on the server and the browser only has
- * to draw the result.
+ * Layout comes from a small force simulation seeded with a fixed number, so it
+ * runs once on the server and every visitor sees the same arrangement.
  * ==========================================================================*/
 
-export type GraphEdge = { a: number; b: number };
+export const TRAITS = ["e", "n", "a", "c", "o"] as const;
+export type TraitKey = (typeof TRAITS)[number];
 
-/* Deterministic PRNG — same layout on every build. */
+export const TRAIT_NAMES: Record<TraitKey, string> = {
+  e: "Extraversion",
+  n: "Neuroticism",
+  a: "Agreeableness",
+  c: "Conscientiousness",
+  o: "Openness",
+};
+
+export type TraitNode = {
+  id: number;
+  label: string;
+  trait: TraitKey;
+  position: [number, number, number];
+};
+
+export type TraitEdge = { a: number; b: number; w: number };
+
+export type TraitGraph = {
+  nodes: TraitNode[];
+  edges: TraitEdge[];
+  counts: { trait: TraitKey; name: string; count: number }[];
+};
+
+export function buildTraitGraph(): TraitGraph {
+  const edges: TraitEdge[] = data.edges;
+
+  const positions = solve(
+    data.nodes.length,
+    edges,
+    edges.map((e) => Math.abs(e.w)),
+  );
+
+  const nodes: TraitNode[] = data.nodes.map((n, i) => ({
+    id: n.id,
+    label: n.label,
+    trait: TRAITS[n.community] ?? "o",
+    position: positions[i],
+  }));
+
+  const counts = TRAITS.map((trait) => ({
+    trait,
+    name: TRAIT_NAMES[trait],
+    count: nodes.filter((n) => n.trait === trait).length,
+  })).filter((c) => c.count > 0);
+
+  return { nodes, edges, counts };
+}
+
+/* Deterministic PRNG, so the layout is identical on every build. */
 function rng(seed: number) {
   let s = seed >>> 0;
   return () => {
@@ -21,7 +73,11 @@ function rng(seed: number) {
   };
 }
 
-function solve(count: number, edges: GraphEdge[], weights: number[]): [number, number, number][] {
+function solve(
+  count: number,
+  edges: TraitEdge[],
+  weights: number[],
+): [number, number, number][] {
   const random = rng(20261102);
   const pos: number[][] = [];
   const vel: number[][] = [];
@@ -35,7 +91,7 @@ function solve(count: number, edges: GraphEdge[], weights: number[]): [number, n
     vel.push([0, 0, 0]);
   }
 
-  for (let step = 0; step < 320; step++) {
+  for (let step = 0; step < 500; step++) {
     const force: number[][] = Array.from({ length: count }, () => [0, 0, 0]);
 
     for (let i = 0; i < count; i++) {
@@ -45,7 +101,7 @@ function solve(count: number, edges: GraphEdge[], weights: number[]): [number, n
         const dz = pos[i][2] - pos[j][2];
         const d2 = Math.max(dx * dx + dy * dy + dz * dz, 1);
         const d = Math.sqrt(d2);
-        const rep = 5200 / d2;
+        const rep = 1800 / d2;
         force[i][0] += (dx / d) * rep;
         force[i][1] += (dy / d) * rep;
         force[i][2] += (dz / d) * rep;

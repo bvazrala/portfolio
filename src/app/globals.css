@@ -27,6 +27,13 @@
   --c-interface: #a8437f;
   --c-practice: #6f7883;
 
+  --trait-e: #0072b2;
+  --trait-n: #cc79a7;
+  --trait-a: #009e73;
+  --trait-c: #d55e00;
+  --trait-o: #e69f00;
+  --trait-neg: #8a9099; 
+
   --grid: rgb(18 21 26 / 0.035);
 }
 
@@ -48,7 +55,14 @@
   --c-device: #23c39a;
   --c-interface: #e093c0;
   --c-practice: #7c8794;
-
+  
+  --trait-e: #56b4e9;
+  --trait-n: #e093c0;
+  --trait-a: #23c39a;
+  --trait-c: #f08b4a;
+  --trait-o: #f0c14b;
+  --trait-neg: #6d7681;
+  
   --grid: rgb(233 237 242 / 0.035);
 }
 
