@@ -7,45 +7,45 @@ import * as THREE from "three";
 import type { TraitGraph } from "@/lib/graph";
 
 /* ============================================================================
- * Draws the learned Big Five graph.
+ * Ambient background.
  *
- * Nodes are instanced spheres coloured by the trait community they landed in.
- * Edges are a single LineSegments mesh with per-vertex colour, where "faded"
- * means blended toward the page background rather than made transparent. On an
- * opaque background that looks identical and costs one lerp instead of a sort.
+ * This is the graph a regularised Ising model learned over 50 personality
+ * survey items in CS 179, drifting behind the page at low opacity. It is
+ * texture, not a figure: no border, no labels, no interaction. The Big Five
+ * card in Selected Work is where it gets explained.
  *
- * Positive edges take their trait colour, negative ones go grey, and weak
- * edges of either sign wash out toward the background.
+ * "Fading" an edge blends it toward the page background rather than making it
+ * transparent, which on an opaque background looks identical and costs one
+ * lerp instead of a depth sort.
  * ==========================================================================*/
 
-const NODE_RADIUS = 1.9;
+const NODE_RADIUS = 1.6;
+const CAMERA_Z = 190; /* lower pushes the graph past the viewport edges */
 
 function readVar(name: string) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
 export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
-  const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const paintRef = useRef<(() => void) | null>(null);
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {
-    const wrap = wrapRef.current;
     const canvas = canvasRef.current;
-    if (!wrap || !canvas) return;
+    if (!canvas) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 1, 3000);
-    camera.position.set(0, 0, 268);
+    camera.position.set(0, 0, CAMERA_Z);
 
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     } catch {
-      return; /* no WebGL: the frame just stays empty */
+      return; /* no WebGL: the page just has a plain background */
     }
     renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -54,9 +54,8 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
     scene.add(group);
 
     /* ---- edges ---------------------------------------------------------- */
-    const edgeCount = graph.edges.length;
-    const vertices = new Float32Array(edgeCount * 6);
-    const colours = new Float32Array(edgeCount * 6);
+    const vertices = new Float32Array(graph.edges.length * 6);
+    const colours = new Float32Array(graph.edges.length * 6);
 
     graph.edges.forEach((e, i) => {
       const a = graph.nodes[e.a].position;
@@ -75,8 +74,11 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
     group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
 
     /* ---- nodes ---------------------------------------------------------- */
-    const sphere = new THREE.SphereGeometry(NODE_RADIUS, 12, 12);
-    const nodeMaterial = new THREE.MeshBasicMaterial({ transparent: true, opacity: reduced ? 1 : 0 });
+    const sphere = new THREE.SphereGeometry(NODE_RADIUS, 10, 10);
+    const nodeMaterial = new THREE.MeshBasicMaterial({
+      transparent: true,
+      opacity: reduced ? 1 : 0,
+    });
     const nodes = new THREE.InstancedMesh(sphere, nodeMaterial, graph.nodes.length);
     const matrix = new THREE.Matrix4();
     graph.nodes.forEach((n, i) => {
@@ -104,13 +106,12 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
       if (nodes.instanceColor) nodes.instanceColor.needsUpdate = true;
 
       graph.edges.forEach((e, i) => {
-        const strength = Math.min(Math.abs(e.w), 1);
-        const fade = 1 - strength * 0.85;
-        const base = e.w < 0 ? negative : (traitColour.get(graph.nodes[e.a].trait) ?? "#888888");
-        scratch.setStyle(base).lerp(background, fade);
+        const fade = 1 - Math.min(Math.abs(e.w), 1) * 0.85;
+        const from = e.w < 0 ? negative : (traitColour.get(graph.nodes[e.a].trait) ?? "#888888");
+        scratch.setStyle(from).lerp(background, fade);
         colours.set([scratch.r, scratch.g, scratch.b], i * 6);
-        const other = e.w < 0 ? negative : (traitColour.get(graph.nodes[e.b].trait) ?? "#888888");
-        scratch.setStyle(other).lerp(background, fade);
+        const to = e.w < 0 ? negative : (traitColour.get(graph.nodes[e.b].trait) ?? "#888888");
+        scratch.setStyle(to).lerp(background, fade);
         colours.set([scratch.r, scratch.g, scratch.b], i * 6 + 3);
       });
       edgeGeometry.attributes.color.needsUpdate = true;
@@ -119,82 +120,40 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
 
     /* ---- sizing --------------------------------------------------------- */
     const resize = () => {
-      const rect = wrap.getBoundingClientRect();
-      const width = Math.max(rect.width, 1);
-      const height = Math.max(rect.height, 1);
+      const width = Math.max(window.innerWidth, 1);
+      const height = Math.max(window.innerHeight, 1);
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
-      camera.position.z = width < 520 ? 330 : 268;
+      camera.position.z = width < 720 ? CAMERA_Z * 1.6 : CAMERA_Z;
       camera.updateProjectionMatrix();
     };
-    const observer = new ResizeObserver(resize);
-    observer.observe(wrap);
+    window.addEventListener("resize", resize);
     resize();
 
     /* ---- motion --------------------------------------------------------- */
-    const spin = reduced ? 0 : 0.0013;
+    const spin = reduced ? 0 : 0.0007;
     let intro = reduced ? 1 : 0;
-    let dragging = false;
-    let lastX = 0;
-    let lastY = 0;
-    let drift = 0;
     let visible = true;
-    let onScreen = true;
     let frame = 0;
-
-    const onPointerDown = (e: PointerEvent) => {
-      if (e.pointerType === "touch" || intro < 1) return; /* never fight a touch scroll */
-      dragging = true;
-      lastX = e.clientX;
-      lastY = e.clientY;
-      wrap.setPointerCapture(e.pointerId);
-      wrap.style.cursor = "grabbing";
-    };
-    const onPointerMove = (e: PointerEvent) => {
-      if (!dragging) return;
-      drift = (e.clientX - lastX) * 0.005;
-      group.rotation.y += drift;
-      group.rotation.x = Math.max(-1.1, Math.min(1.1, group.rotation.x + (e.clientY - lastY) * 0.005));
-      lastX = e.clientX;
-      lastY = e.clientY;
-    };
-    const endDrag = () => {
-      dragging = false;
-      wrap.style.cursor = "";
-    };
-
-    wrap.addEventListener("pointerdown", onPointerDown);
-    wrap.addEventListener("pointermove", onPointerMove);
-    wrap.addEventListener("pointerup", endDrag);
-    wrap.addEventListener("pointercancel", endDrag);
 
     const onVisibility = () => {
       visible = !document.hidden;
     };
     document.addEventListener("visibilitychange", onVisibility);
 
-    const inView = new IntersectionObserver(([entry]) => {
-      onScreen = entry.isIntersecting;
-    });
-    inView.observe(wrap);
-
     const tick = () => {
       frame = requestAnimationFrame(tick);
-      if (!visible || !onScreen) return;
+      if (!visible) return;
 
       if (intro < 1) {
-        intro = Math.min(1, intro + 0.012);
+        intro = Math.min(1, intro + 0.008);
         const eased = 1 - Math.pow(1 - intro, 3);
-        group.scale.setScalar(0.78 + eased * 0.22);
-        group.rotation.y = (1 - eased) * -0.8;
+        group.scale.setScalar(0.9 + eased * 0.1);
         edgeMaterial.opacity = eased;
         nodeMaterial.opacity = eased;
-      } else if (!dragging && spin) {
+      } else if (spin) {
         group.rotation.y += spin;
-        if (Math.abs(drift) > 0.0001) {
-          drift *= 0.94;
-          group.rotation.y += drift;
-        }
+        group.rotation.x = Math.sin(Date.now() * 0.00004) * 0.18;
       }
 
       renderer.render(scene, camera);
@@ -205,13 +164,8 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
 
     return () => {
       cancelAnimationFrame(frame);
-      observer.disconnect();
-      inView.disconnect();
+      window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVisibility);
-      wrap.removeEventListener("pointerdown", onPointerDown);
-      wrap.removeEventListener("pointermove", onPointerMove);
-      wrap.removeEventListener("pointerup", endDrag);
-      wrap.removeEventListener("pointercancel", endDrag);
       paintRef.current = null;
       edgeGeometry.dispose();
       edgeMaterial.dispose();
@@ -226,12 +180,8 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
   }, [resolvedTheme]);
 
   return (
-    <div
-      ref={wrapRef}
-      className="relative aspect-[1/0.82] min-h-[340px] w-full overflow-hidden rounded-lg border border-rule bg-panel/30"
-      aria-hidden="true"
-    >
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+    <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.30]" aria-hidden="true">
+      <canvas ref={canvasRef} className="h-full w-full" />
     </div>
   );
 }
