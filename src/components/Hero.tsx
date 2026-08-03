@@ -1,9 +1,11 @@
 import { profile } from "@/content/profile";
+import GraphMount from "@/components/GraphMount";
+import { TRAIT_NAMES, type TraitGraph } from "@/lib/graph";
 
-export default function Hero() {
+export default function Hero({ graph }: { graph: TraitGraph }) {
   return (
     <section id="intro" className="scroll-mt-24 py-14 md:py-20">
-      <div>
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] xl:gap-14">
         <div>
           <p className="label rise mb-6 flex flex-wrap gap-x-3 gap-y-1 text-muted">
             <span>{profile.role}</span>
@@ -52,6 +54,27 @@ export default function Hero() {
             </a>
           </div>
         </div>
+        <figure className="rise m-0" style={{ animationDelay: "0.2s" }}>
+          <GraphMount graph={graph} />
+          <figcaption className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-2 font-mono text-[0.68rem] text-muted">
+            <span>
+              <span className="text-ink-2">Fig. 1</span> 50 personality survey items and the dependencies a
+              regularised Ising model learned between them. Colour marks the five communities it recovered.
+            </span>
+            <span className="flex flex-wrap gap-x-4 gap-y-1">
+              {graph.counts.map((c) => (
+                <span key={c.trait} className="inline-flex items-center gap-1.5">
+                  <span
+                    aria-hidden="true"
+                    className="h-2 w-2 shrink-0 rounded-full"
+                    style={{ background: `var(--trait-${c.trait})` }}
+                  />
+                  {TRAIT_NAMES[c.trait]}
+                </span>
+              ))}
+            </span>
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

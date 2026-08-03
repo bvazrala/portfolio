@@ -5,8 +5,11 @@ import Hero from "@/components/Hero";
 import { MobileBar, Sidebar } from "@/components/Sidebar";
 import Skills from "@/components/Skills";
 import Work from "@/components/Work";
+import { buildTraitGraph } from "@/lib/graph";
 
 export default function Home() {
+  const graph = buildTraitGraph();
+
   return (
     <>
       <a
@@ -23,7 +26,7 @@ export default function Home() {
         id="main"
         className="px-5 pb-24 sm:px-8 lg:ml-[clamp(320px,30vw,420px)] lg:px-12 xl:px-20 2xl:max-w-[1100px]"
       >
-        <Hero />
+        <Hero graph={graph} />
         <About />
         <Work />
         <Experience />
