@@ -15,7 +15,7 @@ export const DOMAINS: Record<DomainKey, { label: string; cssVar: string }> = {
 export const profile = {
   name: "Bala Kausik Vazrala",
   role: "Computer Science, UC Irvine",
-  /* The line beside the green dot. Reword it or set it to null to hide it. */
+  tagline: "Embedded systems, models, and the interfaces on top of them.",
   status: "Open to software engineering, data science, and machine learning internships." as string | null,
   location: "Irvine, CA, USA",
   email: "bvazrala@uci.edu",
@@ -256,75 +256,7 @@ export const sections = [
   { id: "intro", label: "Intro" },
   { id: "about", label: "About" },
   { id: "work", label: "Work" },
-  { id: "repositories", label: "Repositories" },
   { id: "experience", label: "Experience" },
   { id: "skills", label: "Skills" },
   { id: "contact", label: "Contact" },
 ] as const;
-
-/* Repos that shouldn't appear anywhere on the site. */
-export const HIDDEN_REPOS = ["bvazrala", "bvazrala.github.io", "portfolio"];
-
-/* Optional polish for a repo. Anything not listed still shows up using its
-   GitHub description and language, so new pushes need no edit here. */
-export const REPO_NOTES: Record<
-  string,
-  { title?: string; short?: string; description?: string; domain?: DomainKey; tags?: string[] }
-> = {
-  graphical_models_big5: {
-    title: "Big Five graphical models",
-    short: "Big Five graph",
-    description:
-      "A pairwise Ising model fit over 50 personality survey items; community detection on the learned graph recovers all five traits.",
-    domain: "model",
-    tags: ["python", "ml", "graphs"],
-  },
-  "CS-147-Class-Activities": {
-    title: "CS 147 — IoT coursework",
-    short: "CS 147 IoT",
-    description: "Every lab from UCI's Internet of Things course: ESP32 firmware, sensors, and radios.",
-    domain: "device",
-    tags: ["cpp", "embedded"],
-  },
-  uci_datathon_2026_project: {
-    title: "Tweet sentiment & emoji prediction",
-    short: "Tweet sentiment",
-    description: "BERT classifier for tweet sentiment with a public Streamlit dashboard. Built at UCI Datathon 2026.",
-    domain: "model",
-    tags: ["python", "ml", "web"],
-  },
-  mukya: {
-    title: "Mukya",
-    short: "Mukya",
-    domain: "interface",
-    tags: ["web", "js"],
-  },
-  perplexity_stock_pitch_comp: {
-    title: "Stock pitch, with receipts",
-    short: "Stock pitch",
-    description: "Prompts, code, dashboard, and video from a Perplexity stock-pitch competition.",
-    domain: "model",
-    tags: ["web", "js", "data"],
-  },
-  wine_quality_ml_project: {
-    title: "Wine quality regression",
-    short: "Wine quality",
-    description: "Predicting wine quality scores from physicochemical measurements.",
-    domain: "model",
-    tags: ["python", "ml"],
-  },
-  cs171_sudokuProject: {
-    title: "Sudoku solver",
-    short: "Sudoku solver",
-    description: "Constraint propagation and backtracking search for CS 171's Sudoku assignment.",
-    domain: "model",
-    tags: ["python", "ai"],
-  },
-  "neetcode-submissions": {
-    title: "NeetCode submissions",
-    short: "NeetCode",
-    description: "Problems I've worked through, committed as I go.",
-    domain: "practice",
-    tags: ["algorithms"],
-  },
-};

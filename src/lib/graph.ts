@@ -1,6 +1,3 @@
-import { DOMAINS, projects, type DomainKey } from "@/content/profile";
-import type { Repo } from "@/lib/github";
-
 /* ============================================================================
  * The hero figure.
  *
@@ -13,30 +10,7 @@ import type { Repo } from "@/lib/github";
  * to draw the result.
  * ==========================================================================*/
 
-export const GRAPH_MAX_NODES = 16;
-
-export type GraphNode = {
-  id: string;
-  label: string;
-  full: string;
-  domain: DomainKey;
-  featured: boolean;
-  /* Where clicking the node should take you. */
-  target: string;
-  position: [number, number, number];
-};
-
 export type GraphEdge = { a: number; b: number };
-
-export type Graph = {
-  nodes: GraphNode[];
-  edges: GraphEdge[];
-  counts: { domain: DomainKey; label: string; count: number }[];
-};
-
-export function repoAnchor(name: string) {
-  return "repo-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-}
 
 /* Deterministic PRNG — same layout on every build. */
 function rng(seed: number) {
@@ -44,91 +18,6 @@ function rng(seed: number) {
   return () => {
     s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
     return s / 4294967296;
-  };
-}
-
-export function buildGraph(repos: Repo[]): Graph {
-  const nodes: Omit<GraphNode, "position">[] = [];
-  const tagsOf: string[][] = [];
-  const claimed = new Set<string>();
-
-  for (const p of projects) {
-    if (p.repo) claimed.add(p.repo);
-    nodes.push({
-      id: p.id,
-      label: p.short,
-      full: p.title,
-      domain: p.domain,
-      featured: true,
-      target: `#project-${p.id}`,
-    });
-    tagsOf.push(p.tags);
-  }
-
-  for (const r of repos) {
-    if (nodes.length >= GRAPH_MAX_NODES) break;
-    if (claimed.has(r.name)) continue;
-    nodes.push({
-      id: r.name,
-      label: r.short,
-      full: r.title,
-      domain: r.domain,
-      featured: false,
-      target: `#${repoAnchor(r.name)}`,
-    });
-    tagsOf.push(r.tags);
-  }
-
-  /* Weight every pair, keep the strongest, cap how many any one node carries. */
-  const candidates: { a: number; b: number; w: number }[] = [];
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      let w = nodes[i].domain === nodes[j].domain ? 1 : 0;
-      for (const t of tagsOf[i]) if (tagsOf[j].includes(t)) w += 0.7;
-      if (w >= 1) candidates.push({ a: i, b: j, w: Math.min(w, 2.4) });
-    }
-  }
-  candidates.sort((x, y) => y.w - x.w);
-
-  const degree = new Array<number>(nodes.length).fill(0);
-  const cap = (i: number) => (nodes[i].featured ? 5 : 4);
-  const edges: GraphEdge[] = [];
-  const weights: number[] = [];
-
-  for (const e of candidates) {
-    if (degree[e.a] >= cap(e.a) || degree[e.b] >= cap(e.b)) continue;
-    degree[e.a]++;
-    degree[e.b]++;
-    edges.push({ a: e.a, b: e.b });
-    weights.push(e.w);
-  }
-
-  /* Nothing floats alone. */
-  nodes.forEach((n, i) => {
-    if (degree[i] > 0) return;
-    let partner = nodes.findIndex((m, k) => k !== i && m.domain === n.domain);
-    if (partner === -1) partner = i === 0 ? 1 : 0;
-    if (partner < 0 || partner >= nodes.length) return;
-    edges.push({ a: i, b: partner });
-    weights.push(1);
-    degree[i]++;
-    degree[partner]++;
-  });
-
-  const positions = solve(nodes.length, edges, weights);
-
-  const counts = (Object.keys(DOMAINS) as DomainKey[])
-    .map((domain) => ({
-      domain,
-      label: DOMAINS[domain].label,
-      count: nodes.filter((n) => n.domain === domain).length,
-    }))
-    .filter((c) => c.count > 0);
-
-  return {
-    nodes: nodes.map((n, i) => ({ ...n, position: positions[i] })),
-    edges,
-    counts,
   };
 }
 
