@@ -136,7 +136,7 @@ export function Sidebar() {
           <h1 className="font-display text-[clamp(2rem,2.6vw,2.75rem)] leading-[0.95]">{profile.name}</h1>
         </a>
         <p className="mt-3 text-[0.95rem] font-medium text-ink-2">{profile.role}</p>
-        <p className="mt-5 max-w-[34ch] text-sm leading-relaxed text-muted">{profile.intro}</p>
+        <p className="mt-5 max-w-[34ch] text-sm leading-relaxed text-muted">{profile.tagline}</p>
       </div>
 
       <div className="my-8">

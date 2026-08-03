@@ -16,21 +16,21 @@ export const profile = {
   name: "Bala Kausik Vazrala",
   role: "Computer Science, UC Irvine",
   /* The line beside the green dot. Reword it or set it to null to hide it. */
-  status: "Open to software and machine learning internships." as string | null,
-  location: "Irvine, CA",
+  status: "Open to software engineering, data science, and machine learning internships." as string | null,
+  location: "Irvine, CA, USA",
   email: "bvazrala@uci.edu",
   github: "bvazrala",
-  linkedin: "https://linkedin.com/in/bala-kausik-vazrala",
+  linkedin: "https://www.linkedin.com/in/bala-kausik-vazrala-37869533/",
   resume: "/Resume.pdf",
   siteUrl: "https://bvazrala.vercel.app",
 
-  headline: ["I build systems that", "turn noise into signal."],
+  headline: ["I love to build.", "Always ready to learn."],
 
   intro:
     "An alarm clock that briefs you without handing you a phone. A model that finds five personality traits hiding in fifty survey questions. A webcam that types from hand signs.",
 
   about: [
-    "I'm a junior at UC Irvine studying computer science, and most of what I build sits between a sensor and a decision — firmware that has to keep working when the network doesn't, models that have to explain themselves, interfaces that have to feel obvious.",
+    "I'm a senior at UC Irvine studying computer science and business. Most of what I build sits between a sensor and a decision — firmware that has to keep working when the network doesn't, models that have to explain themselves, interfaces that have to feel obvious.",
     "I transferred in from Irvine Valley College, where I ran the CS club and grew it from 700 to 900 members by teaching the things classes skipped: Git, the command line, how a network actually moves a packet. That's still the work I like best — taking something opaque and making it usable by someone who didn't build it.",
     "Right now I'm leading a two-person team on an ESP32 briefing device, mentoring incoming transfer students at UCI's Transfer Center, and reading more than I probably should about graphical models.",
   ],
