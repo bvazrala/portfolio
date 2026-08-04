@@ -180,7 +180,10 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
   }, [resolvedTheme]);
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-screen opacity-[0.22]" aria-hidden="true">
+    <div
+      className="pointer-events-none fixed inset-0 z-0 opacity-[0.22]"
+      aria-hidden="true"
+    >
       <canvas ref={canvasRef} className="h-full w-full" />
     </div>
   );
