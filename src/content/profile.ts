@@ -24,10 +24,10 @@ export const profile = {
   headline: ["I love to build.", "Always ready to learn."],
 
   about: [
-    "I want to know how things work. My information retrieval class had us take a search engine apart, and the ideas underneath it turned out to apply almost everywhere else. That's usually what keeps me on a project longer than the assignment does.",
-    "It's also why I picked the Intelligent Systems specialization. Strip the abstraction off machine learning and you're left with statistics, calculus, and linear algebra used cleverly. I like that layer more than the frameworks sitting on top of it.",
-    "Computer science is how I build. Business and economics is where I think building matters most, and my coursework has run through both, from shipping software to reading analytics and working out what people actually need.",
-    "I don't have a dream job. What I want is a skillset wide enough to carry something through the whole loop: plan it, build it, test it, read the numbers, talk to people, decide, then go again.",
+    "I came into college interested in almost everything, and spent a while trying to keep it that way. The economics degree was part of that. So was a stretch of taking whatever looked worth taking. Eventually I picked computer science, less because the other subjects stopped being interesting and more because you can't learn everything, and this was the one that let me actually build.",
+    "The Intelligent Systems specialization was the same reasoning applied again. It was the material I found most interesting, and the one whose ideas travel furthest. Strip the abstraction off machine learning and you find statistics, calculus, and linear algebra used cleverly, which is the layer I've always liked working in. Taking a search engine apart in my information retrieval class did more for me than most of what I've built, because ranking and relevance and deciding what matters are questions that show up nowhere near search.",
+    "What I care about now is the whole loop rather than any one part of it. Planning something, building it, seeing how it behaves, reading what the numbers say, talking to the people using it, then going again with better information. That's also what drew me to the business side, since it's where you find out whether the thing you built was worth building.",
+    "So I'm not chasing a particular title. I'm looking for work where that loop runs, and where I get to keep being curious about how it all fits together.",
   ],
 
   focusAreas: [
