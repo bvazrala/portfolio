@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { profile, sections } from "@/content/profile";
@@ -134,14 +133,6 @@ export function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 z-20 hidden h-screen w-[clamp(320px,30vw,420px)] flex-col border-r border-rule/50 bg-bg/75 px-10 py-12 backdrop-blur-[3px] lg:flex xl:px-14">
       <div>
-        <Image
-          src="/profile.jpg"
-          alt="Portrait of Bala Kausik Vazrala"
-          width={72}
-          height={72}
-          priority
-          className="mb-4 h-[72px] w-[72px] rounded-full border border-rule object-cover shadow-[0_10px_30px_rgb(0_0_0/0.18)]"
-        />
         <a href="#intro" className="block">
           <h1 className="font-display text-[clamp(2rem,2.6vw,2.75rem)] leading-[0.95]">{profile.name}</h1>
         </a>
@@ -155,8 +146,15 @@ export function Sidebar() {
           rel="noopener noreferrer"
           className="group flex items-center gap-4 py-1.5"
         >
-          <span aria-hidden="true" className="flex w-14 shrink-0 items-center">
+          <span
+            aria-hidden="true"
+            className="flex w-14 shrink-0 items-center"
+          >
             <span className="block h-px w-6 bg-rule transition-all duration-300 group-hover:w-10 group-hover:bg-muted" />
+          </span>
+
+          <span className="label text-muted transition-colors group-hover:text-ink">
+            Résumé ↗
           </span>
         </a>
       </div>

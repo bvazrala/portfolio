@@ -2,7 +2,7 @@ import { profile } from "@/content/profile";
 
 export default function Hero() {
   return (
-    <section id="intro" className="scroll-mt-24 py-14 md:py-20">
+    <section id="intro" className="scroll-mt-24 py-14 md:pb-20 md:pt-36">
       <div className="grid items-center gap-10">
         <div>
 
