@@ -131,7 +131,7 @@ export function Sidebar() {
   const active = useScrollSpy();
 
   return (
-    <aside className="fixed left-0 top-0 z-20 hidden h-screen w-[clamp(320px,30vw,420px)] flex-col border-r border-rule/50 bg-bg/75 px-10 py-12 backdrop-blur-[3px] lg:flex xl:px-14">
+    <aside className="fixed left-0 top-0 z-20 hidden h-screen w-[clamp(320px,30vw,420px)] flex-col border-r border-rule/50 bg-bg/75 px-10 pb-12 pt-40 backdrop-blur-[3px] lg:flex xl:px-14">
       <div>
         <a href="#intro" className="block">
           <h1 className="font-display text-[clamp(2rem,2.6vw,2.75rem)] leading-[0.95]">{profile.name}</h1>
