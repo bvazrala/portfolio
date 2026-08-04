@@ -24,7 +24,7 @@ export const profile = {
   headline: ["I love to build.", "Always ready to learn."],
 
   about: [
-    "I build things because I want to know how they work. My information retrieval class had us take a search engine apart, and the ideas underneath it turned out to apply almost everywhere else. That's usually what keeps me on a project longer than the assignment does.",
+    "I want to know how things work. My information retrieval class had us take a search engine apart, and the ideas underneath it turned out to apply almost everywhere else. That's usually what keeps me on a project longer than the assignment does.",
     "It's also why I picked the Intelligent Systems specialization. Strip the abstraction off machine learning and you're left with statistics, calculus, and linear algebra used cleverly. I like that layer more than the frameworks sitting on top of it.",
     "Computer science is how I build. Business and economics is where I think building matters most, and my coursework has run through both, from shipping software to reading analytics and working out what people actually need.",
     "I don't have a dream job. What I want is a skillset wide enough to carry something through the whole loop: plan it, build it, test it, read the numbers, talk to people, decide, then go again.",
