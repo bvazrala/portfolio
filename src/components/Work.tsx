@@ -3,10 +3,7 @@ import { DOMAINS, profile, projects } from "@/content/profile";
 
 export default function Work() {
   return (
-    <Section
-      id="work"
-      title="Selected work"
-    >
+    <Section id="projects" title="Projects">
       <div className="space-y-6">
         {projects.map((project) => (
           <article

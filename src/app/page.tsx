@@ -1,11 +1,12 @@
-import About from "@/components/About";
-import Contact from "@/components/Contact";
-import Experience from "@/components/Experience";
-import GraphMount from "@/components/GraphMount";
 import Hero from "@/components/Hero";
-import { MobileBar, Sidebar } from "@/components/Sidebar";
-import Skills from "@/components/Skills";
+import About from "@/components/About";
+import Education from "@/components/Education";
 import Work from "@/components/Work";
+import Experience from "@/components/Experience";
+import Skills from "@/components/Skills";
+import Contact from "@/components/Contact";
+import GraphMount from "@/components/GraphMount";
+import { MobileBar, Sidebar } from "@/components/Sidebar";
 import { buildTraitGraph } from "@/lib/graph";
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
       >
         <Hero />
         <About />
+        <Education />
         <Work />
         <Experience />
         <Skills />

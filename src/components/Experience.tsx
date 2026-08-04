@@ -1,5 +1,5 @@
 import { Section } from "@/components/Section";
-import { coursework, education, experience } from "@/content/profile";
+import { experience } from "@/content/profile";
 
 export default function Experience() {
   return (
@@ -27,37 +27,6 @@ export default function Experience() {
             </div>
           </article>
         ))}
-      </div>
-
-      <div className="mt-16 border-t border-rule pt-10">
-        <h3 className="label mb-6 text-muted">Education</h3>
-        <div className="space-y-6">
-          {education.map((entry) => (
-            <div key={entry.school} className="grid gap-x-8 gap-y-1 md:grid-cols-[minmax(0,11rem)_minmax(0,1fr)]">
-              <p className="font-mono text-[0.72rem] uppercase tracking-[0.1em] text-muted">{entry.dates}</p>
-              <div>
-                <h4 className="font-display-tight text-[1.05rem]">{entry.school}</h4>
-                <p className="mt-0.5 text-[0.93rem] text-ink-2">{entry.detail}</p>
-              </div>
-            </div>
-          ))}
-          <div className="grid gap-x-8 gap-y-3 md:grid-cols-[minmax(0,11rem)_minmax(0,1fr)]">
-  <p className="font-mono text-[0.72rem] uppercase tracking-[0.1em] text-muted">
-    Coursework
-  </p>
-
-            <div className="space-y-4">
-              {coursework.map((group) => (
-                <div key={group.group}>
-                  <p className="label text-muted">{group.group}</p>
-                  <p className="mt-1 text-[0.93rem] leading-relaxed text-ink-2">
-                    {group.items.join(" · ")}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </Section>
   );

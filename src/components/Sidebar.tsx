@@ -99,13 +99,16 @@ function NavList({ active, onNavigate }: { active: string; onNavigate?: () => vo
                 aria-current={current ? "true" : undefined}
                 className="group flex items-center gap-4 py-1.5"
               >
-                <span
-                  aria-hidden="true"
-                  className={[
-                    "block h-px transition-all duration-300",
-                    current ? "w-14 bg-accent" : "w-6 bg-rule group-hover:w-10 group-hover:bg-muted",
-                  ].join(" ")}
-                />
+                <span aria-hidden="true" className="flex w-14 shrink-0 items-center">
+                  <span
+                    className={[
+                      "block h-px transition-all duration-300",
+                      current
+                        ? "w-14 bg-accent"
+                        : "w-6 bg-rule group-hover:w-10 group-hover:bg-muted",
+                    ].join(" ")}
+                  />
+                </span>
                 <span
                   className={[
                     "label transition-colors duration-200",
@@ -130,29 +133,28 @@ export function Sidebar() {
   const active = useScrollSpy();
 
   return (
-    <aside className="fixed left-0 top-0 hidden h-screen w-[clamp(320px,30vw,420px)] flex-col justify-start gap-16 px-10 py-12 lg:flex xl:px-14">
+    <aside className="fixed left-0 top-0 hidden h-screen w-[clamp(320px,30vw,420px)] flex-col px-10 py-12 lg:flex xl:px-14">
       <div>
         <a href="#intro" className="block">
           <h1 className="font-display text-[clamp(2rem,2.6vw,2.75rem)] leading-[0.95]">{profile.name}</h1>
         </a>
-        <p className="mt-3 text-[0.95rem] font-medium text-ink-2">{profile.role}</p>
-        <p className="mt-5 max-w-[34ch] text-sm leading-relaxed text-muted">{profile.tagline}</p>
       </div>
 
-      <div>
+      <div className="mt-14">
         <NavList active={active} />
         <a
           href={profile.resume}
           target="_blank"
           rel="noopener noreferrer"
-          className="group mt-8 flex items-center gap-4 py-1.5"
+          className="group flex items-center gap-4 py-1.5"
         >
-          <span aria-hidden="true" className="block h-px w-6 bg-rule transition-all duration-300 group-hover:w-10 group-hover:bg-muted" />
-          <span className="label text-muted transition-colors group-hover:text-ink">Résumé ↗</span>
+          <span aria-hidden="true" className="flex w-14 shrink-0 items-center">
+            <span className="block h-px w-6 bg-rule transition-all duration-300 group-hover:w-10 group-hover:bg-muted" />
+          </span>
         </a>
       </div>
 
-      <div className="space-y-6">
+      <div className="mt-auto space-y-6">
         <ThemeToggle />
         <Socials />
       </div>

@@ -14,10 +14,7 @@ export const DOMAINS: Record<DomainKey, { label: string; cssVar: string }> = {
 
 export const profile = {
   name: "Bala Kausik Vazrala",
-  role: "Computer Science, UC Irvine",
-  tagline: "Embedded systems, models, and the interfaces on top of them.",
   status: "Open to software engineering, data science, and machine learning internships." as string | null,
-  location: "Irvine, CA, USA",
   email: "bvazrala@uci.edu",
   github: "bvazrala",
   linkedin: "https://www.linkedin.com/in/bala-kausik-vazrala-37869533/",
@@ -27,17 +24,18 @@ export const profile = {
   headline: ["I love to build.", "Always ready to learn."],
 
   about: [
-    "I'm a senior at UC Irvine studying computer science and business. Most of what I build sits between a sensor and a decision — firmware that has to keep working when the network doesn't, models that have to explain themselves, interfaces that have to feel obvious.",
-    "I transferred in from Irvine Valley College, where I ran the CS club and grew it from 700 to 900 members by teaching the things classes skipped: Git, the command line, how a network actually moves a packet. That's still the work I like best — taking something opaque and making it usable by someone who didn't build it.",
-    "Right now I'm leading a two-person team on an ESP32 briefing device, mentoring incoming transfer students at UCI's Transfer Center, and reading more than I probably should about graphical models.",
+    "I build things because I want to know how they work. My information retrieval class had us take a search engine apart, and the ideas underneath it turned out to apply almost everywhere else. That's usually what keeps me on a project longer than the assignment does.",
+    "It's also why I picked the Intelligent Systems specialization. Strip the abstraction off machine learning and you're left with statistics, calculus, and linear algebra used cleverly. I like that layer more than the frameworks sitting on top of it.",
+    "Computer science is how I build. Business and economics is where I think building matters most, and my coursework has run through both, from shipping software to reading analytics and working out what people actually need.",
+    "I don't have a dream job. What I want is a skillset wide enough to carry something through the whole loop: plan it, build it, test it, read the numbers, talk to people, decide, then go again.",
   ],
 
   focusAreas: [
-    "Embedded systems",
-    "Probabilistic models",
-    "Computer vision",
-    "Data pipelines",
-    "Developer tooling",
+    "Full-stack development",
+    "Data science",
+    "Machine learning",
+    "Software engineering",
+    "IoT & embedded systems",
   ],
 };
 
@@ -311,7 +309,8 @@ export const skills: { group: string; items: string[] }[] = [
 
 export const sections = [
   { id: "about", label: "About" },
-  { id: "work", label: "Work" },
+  { id: "education", label: "Education" },
+  { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "skills", label: "Skills" },
   { id: "contact", label: "Contact" },

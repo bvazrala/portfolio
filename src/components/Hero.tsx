@@ -5,12 +5,6 @@ export default function Hero() {
     <section id="intro" className="scroll-mt-24 py-14 md:py-20">
       <div className="grid items-center gap-10">
         <div>
-          <p className="label rise mb-6 flex flex-wrap gap-x-3 gap-y-1 text-muted">
-            <span aria-hidden="true" className="text-rule">/</span>
-            <span>Class of 2027</span>
-            <span aria-hidden="true" className="text-rule">/</span>
-            <span>{profile.location}</span>
-          </p>
 
           <h2 className="font-display rise mb-7 text-[clamp(2.3rem,5.2vw,4rem)] leading-[0.95]" style={{ animationDelay: "0.08s" }}>
             {profile.headline.map((line) => (
@@ -32,10 +26,10 @@ export default function Hero() {
 
           <div className="rise flex flex-wrap gap-3" style={{ animationDelay: "0.32s" }}>
             <a
-              href="#work"
+              href="#projects"
               className="rounded-md bg-ink px-5 py-3 font-mono text-[0.75rem] uppercase tracking-[0.1em] text-bg transition-opacity hover:opacity-85"
             >
-              See the work
+              View projects
             </a>
             <a
               href={profile.resume}

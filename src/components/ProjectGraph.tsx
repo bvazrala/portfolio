@@ -36,7 +36,7 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
     if (!canvas) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+    const visibleEdges = graph.edges.filter((edge) => Math.abs(edge.w) >= 0.15);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 1, 3000);
     camera.position.set(0, 0, CAMERA_Z);
@@ -54,10 +54,10 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
     scene.add(group);
 
     /* ---- edges ---------------------------------------------------------- */
-    const vertices = new Float32Array(graph.edges.length * 6);
-    const colours = new Float32Array(graph.edges.length * 6);
+    const vertices = new Float32Array(visibleEdges.length * 6);
+    const colours = new Float32Array(visibleEdges.length * 6);
 
-    graph.edges.forEach((e, i) => {
+    visibleEdges.forEach((e, i) => {
       const a = graph.nodes[e.a].position;
       const b = graph.nodes[e.b].position;
       vertices.set([a[0], a[1], a[2], b[0], b[1], b[2]], i * 6);
@@ -105,7 +105,7 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
       });
       if (nodes.instanceColor) nodes.instanceColor.needsUpdate = true;
 
-      graph.edges.forEach((e, i) => {
+      visibleEdges.forEach((e, i) => {
         const fade = 1 - Math.min(Math.abs(e.w), 1) * 0.85;
         const from = e.w < 0 ? negative : (traitColour.get(graph.nodes[e.a].trait) ?? "#888888");
         scratch.setStyle(from).lerp(background, fade);
@@ -180,7 +180,7 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
   }, [resolvedTheme]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.30]" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-screen opacity-[0.22]" aria-hidden="true">
       <canvas ref={canvasRef} className="h-full w-full" />
     </div>
   );
