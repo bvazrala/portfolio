@@ -229,7 +229,7 @@ export const education = [
   },
   {
     school: "USC Viterbi School of Engineering",
-    detail: "Summer program — artificial intelligence and semiconductors",
+    detail: "Summer program — Artificial Intelligence and Semiconductors",
     dates: "Summer 2024",
   },
 ];
@@ -238,46 +238,50 @@ export const coursework = [
   {
     group: "AI & machine learning",
     items: [
-      "CS 171 Artificial Intelligence",
-      "CS 175 Project in AI",
-      "CS 178 Machine Learning & Data Mining",
-      "CS 179 Graphical Models",
-      "SWE 119 AI Engineering Software",
+      "CS 171: Artificial Intelligence",
+      "CS 175: Project in AI",
+      "CS 178: Machine Learning & Data Mining",
+      "CS 179: Graphical Models",
+      "SWE 119: AI Engineering Software",
     ],
   },
   {
     group: "Systems & data",
     items: [
-      "CS 147 Internet of Things",
-      "ICS 53 Principles in System Design",
-      "CS 122A Data Management",
-      "CS 121 Information Retrieval",
+      "CS 147: Internet of Things",
+      "ICS 53: Principles in System Design",
+      "CS 122A: Data Management",
+      "CS 121: Information Retrieval",
     ],
   },
   {
     group: "Theory & math",
     items: [
-      "CS 161 Design & Analysis of Algorithms",
-      "CS 177 Applications of Probability",
-      "STATS 67 Probability & Statistics",
+      "CS 161: Design & Analysis of Algorithms",
+      "CS 177: Applications of Probability",
+      "STATS 67: Probability & Statistics",
       "Linear Algebra",
       "Discrete Mathematics",
+      "Calculus",
     ],
   },
   {
     group: "Software engineering & HCI",
     items: [
-      "IN4MATX 43 Software Engineering",
-      "IN4MATX 131 Human Computer Interaction",
-      "IN4MATX 133 User Interaction Software",
+      "IN4MATX 43: Software Engineering",
+      "IN4MATX 131: Human Computer Interaction",
+      "IN4MATX 133: User Interaction Software",
     ],
   },
   {
-    group: "Business",
+    group: "Business & Economics",
     items: [
-      "MGMT 105 Marketing",
-      "MGMT 159 Analysis of Marketing Data",
-      "MGMT 190 Consulting",
+      "Accounting",
+      "Microeconomics",
+      "Macroeconomics",
+      "MGMT 105: Marketing",
+      "MGMT 159: Analysis of Marketing Data",
+      "MGMT 190: Consulting",
     ],
   },
 ];
