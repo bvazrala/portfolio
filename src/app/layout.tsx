@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-
 import Providers from "@/components/Providers";
 import { profile } from "@/content/profile";
 import "./globals.css";
@@ -11,16 +10,16 @@ const mono = { variable: "s2" };
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
   title: {
-    default: `${profile.name} — ${profile.role}`,
-    template: `%s — ${profile.name}`,
+    default: "bala",
+    template: "%s — bala",
   },
   description:
-    "Embedded systems, machine learning, and the interfaces on top of them. Computer science at UC Irvine, class of 2027.",
+    "Bala's portfolio website",
   openGraph: {
     type: "website",
     url: profile.siteUrl,
     title: profile.name,
-    description: "Embedded systems, machine learning, and the interfaces on top of them.",
+    description: "SWE, DS, ML & AI, Business.",
     siteName: profile.name,
   },
   twitter: { card: "summary_large_image", title: profile.name },

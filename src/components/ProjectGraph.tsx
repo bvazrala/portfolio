@@ -176,7 +176,11 @@ export default function ProjectGraph({ graph }: { graph: TraitGraph }) {
   }, [graph]);
 
   useEffect(() => {
-    paintRef.current?.();
+    const frame = requestAnimationFrame(() => {
+      paintRef.current?.();
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, [resolvedTheme]);
 
   return (

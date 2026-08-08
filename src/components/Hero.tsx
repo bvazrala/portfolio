@@ -27,7 +27,7 @@ export default function Hero() {
           <div className="rise flex flex-wrap gap-3" style={{ animationDelay: "0.32s" }}>
             <a
               href="#projects"
-              className="rounded-md bg-ink px-5 py-3 font-mono text-[0.75rem] uppercase tracking-[0.1em] text-bg transition-opacity hover:opacity-85"
+              className="rounded-md border border-accent bg-accent px-5 py-3 font-mono text-[0.75rem] uppercase tracking-[0.1em] text-bg shadow-lg shadow-accent/15 transition-all hover:-translate-y-0.5 hover:bg-accent-bright hover:shadow-xl hover:shadow-accent/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               View projects
             </a>
@@ -35,12 +35,19 @@ export default function Hero() {
               href={profile.resume}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-md border border-rule px-5 py-3 font-mono text-[0.75rem] uppercase tracking-[0.1em] text-ink transition-colors hover:border-ink"
+              className="rounded-md border border-accent/40 bg-accent/10 px-5 py-3 font-mono text-[0.75rem] uppercase tracking-[0.1em] text-ink shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               Résumé ↗
             </a>
           </div>
         </div>
+        <a
+          href="#projects"
+          className="mt-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-panel/80 px-3.5 py-2 font-mono text-[0.72rem] tracking-[0.08em] text-ink-2 backdrop-blur-md transition-colors hover:border-accent/60 hover:text-ink"
+        >
+          <span className="h-2 w-2 rounded-full bg-accent" />
+          Background graph from my Big Five graphical-model project
+        </a>
 
       </div>
     </section>

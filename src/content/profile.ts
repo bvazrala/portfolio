@@ -201,7 +201,7 @@ export const experience: Role[] = [
     dates: "Aug 2024 — May 2025",
     bullets: [
       "Grew active membership close to 30%, from 700+ to 900+, by widening outreach and running more events.",
-      "Organised 20+ sessions on Git, the command line, and network protocols — the things classes skipped.",
+      "Organised 20+ sessions on Git, the command line, and network protocols. The things community college classes skipped.",
       "Recruited professors to speak and put club funds into socials, so events built something people came back to.",
     ],
   },
@@ -238,27 +238,27 @@ export const coursework = [
   {
     group: "AI & machine learning",
     items: [
+      "CS 116: Computational Vision & Photograpy",
+      "CS 117: Project in Computer Vision",
       "CS 171: Artificial Intelligence",
       "CS 175: Project in AI",
       "CS 178: Machine Learning & Data Mining",
       "CS 179: Graphical Models",
-      "SWE 119: AI Engineering Software",
     ],
   },
   {
     group: "Systems & data",
     items: [
-      "CS 147: Internet of Things",
       "ICS 53: Principles in System Design",
-      "CS 122A: Data Management",
       "CS 121: Information Retrieval",
+      "CS 122A: Data Management",
+      "CS 147: Internet of Things",
     ],
   },
   {
     group: "Theory & math",
     items: [
       "CS 161: Design & Analysis of Algorithms",
-      "CS 177: Applications of Probability",
       "STATS 67: Probability & Statistics",
       "Linear Algebra",
       "Discrete Mathematics",
@@ -269,6 +269,7 @@ export const coursework = [
     group: "Software engineering & HCI",
     items: [
       "IN4MATX 43: Software Engineering",
+      "SWE 117: Project in Software System Design",
       "IN4MATX 131: Human Computer Interaction",
       "IN4MATX 133: User Interaction Software",
     ],
@@ -279,6 +280,7 @@ export const coursework = [
       "Accounting",
       "Microeconomics",
       "Macroeconomics",
+      "MGMT 101: Management Science",
       "MGMT 105: Marketing",
       "MGMT 159: Analysis of Marketing Data",
       "MGMT 190: Consulting",

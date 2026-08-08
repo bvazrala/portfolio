@@ -1,13 +1,6 @@
 @import "tailwindcss";
-
-/* next-themes writes .dark on <html>, so opt out of the media-query default */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ---------------------------------------------------------------------------
-   Palette. Instrument-panel amber on cool ink — warm accent, cold ground.
-   Graph community colours are the Okabe-Ito categorical set, which stays
-   distinguishable to colour-blind readers in both themes.
-   --------------------------------------------------------------------------- */
 :root {
   --bg: #f7f8f4;
   --panel: #edefe9;
@@ -122,8 +115,6 @@
 }
 
 @layer utilities {
-  /* Archivo carries a width axis, so the name and section headings run
-     slightly expanded while everything else sits at normal width. */
   .font-display {
     font-variation-settings: "wdth" 112, "wght" 700;
     letter-spacing: -0.03em;
@@ -172,4 +163,58 @@
 
 .flash {
   animation: flash 1.5s ease-out;
+}
+
+.custom-cursor-dot,
+.custom-cursor-glow {
+  display: none;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  position: fixed;
+  opacity: 0;
+}
+
+.custom-cursor-dot {
+  z-index: 9999;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: var(--accent-bright);
+  will-change: transform, opacity;
+  transition:
+    opacity 140ms ease,
+    background-color 160ms ease;
+}
+
+.custom-cursor-glow {
+  z-index: 9998;
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    var(--accent-wash) 0%,
+    transparent 72%
+  );
+  filter: blur(8px);
+  will-change: transform, opacity;
+  transition: opacity 180ms ease;
+}
+
+.custom-cursor-dot[data-interactive="true"] {
+  background: #fff;
+  mix-blend-mode: difference;
+}
+
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.custom-cursor-enabled,
+  html.custom-cursor-enabled * {
+    cursor: none !important;
+  }
+
+  .custom-cursor-dot,
+  .custom-cursor-glow {
+    display: block;
+  }
 }
