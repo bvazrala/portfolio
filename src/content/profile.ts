@@ -1,6 +1,5 @@
 /* ============================================================================
  * Everything on the site that isn't pulled from GitHub lives here.
- * Edit this file, commit, and Vercel redeploys. No other file needs touching.
  * ==========================================================================*/
 
 export type DomainKey = "model" | "device" | "interface" | "practice";
@@ -23,11 +22,10 @@ export const profile = {
 
   headline: ["I love to build.", "Always ready to learn."],
 
-  about: [
-    "I came into college interested in almost everything, and spent a while trying to keep it that way. The economics degree was part of that. So was a stretch of taking whatever looked worth taking. Eventually I picked computer science, less because the other subjects stopped being interesting and more because you can't learn everything, and this was the one that let me actually build.",
-    "The Intelligent Systems specialization was the same reasoning applied again. It was the material I found most interesting, and the one whose ideas travel furthest. Strip the abstraction off machine learning and you find statistics, calculus, and linear algebra used cleverly, which is the layer I've always liked working in. Taking a search engine apart in my information retrieval class did more for me than most of what I've built, because ranking and relevance and deciding what matters are questions that show up nowhere near search.",
-    "What I care about now is the whole loop rather than any one part of it. Planning something, building it, seeing how it behaves, reading what the numbers say, talking to the people using it, then going again with better information. That's also what drew me to the business side, since it's where you find out whether the thing you built was worth building.",
-    "So I'm not chasing a particular title. I'm looking for work where that loop runs, and where I get to keep being curious about how it all fits together.",
+ about: [
+    "I'm a generalist by instinct who had to pick something. Curiosity made that harder than it should have been, since almost any subject gets interesting once you actually show up for it, but you can't learn everything and computer science was the one that let me build.",
+    "The Intelligent Systems specialization followed from the same reasoning. It's the material I find most interesting and the ideas carry furthest, and underneath the abstraction it's statistics, calculus, and linear algebra used cleverly, which is the layer I like being in. What I'm really after is the moment something I've used my whole life stops being a black box. Pulling a search engine apart in my information retrieval class did that. I didn't do especially well in the course and it was still worth it.",
+    "I used to assume this kind of work meant sitting still and being bored. It hasn't been. Building something means learning how every piece of it works, and my better ideas usually show up on a walk after I've stopped thinking about the problem. I'm looking for work that keeps handing me things I don't understand yet.",
   ],
 
   focusAreas: [
@@ -35,7 +33,7 @@ export const profile = {
     "Data science",
     "Machine learning",
     "Software engineering",
-    "IoT & embedded systems",
+    "Business Intelligence",
   ],
 };
 
@@ -67,16 +65,15 @@ export const projects: Project[] = [
     title: "Briefly",
     short: "Briefly",
     subtitle: "IoT AI briefing station",
-    repo: null,
+    repo: "Briefly",
     domain: "device",
     year: "2026",
     dates: "Jun 2026 — present",
     status: "In progress",
     lead: "An ESP32 device that reads you the morning without handing you a phone. Leading a team of two.",
     impact: [
-      "Alarms keep firing through a network outage",
-      "Summaries run on a local model — nothing leaves the house",
-      "Device telemetry charted live in Azure IoT Hub",
+      "The alarm keeps its own time, so a dead router can't make you sleep through it",
+      "Summaries are generated on the device, so nothing about your morning leaves the house",
     ],
     bullets: [
       "Wrote C++ firmware around FreeRTOS tasks so the alarm keeps its own time when Wi-Fi drops.",
@@ -91,16 +88,16 @@ export const projects: Project[] = [
   title: "Yield",
   short: "RL driving",
   subtitle: "What safety costs in speed",
-  repo: null,
+  repo: "Yield",
   domain: "model",
   year: "2026",
   dates: "Summer 2026 · CS 175",
   status: "In progress",
   lead: "Training a family of driving agents that differ only in how much they are penalised for crashing, then measuring what each one trades away.",
   impact: [
-    "Five reward settings, three seeds each",
-    "200 held out episodes per agent",
-    "Output is a speed versus collision tradeoff curve",
+    "Manufacturers decide how assertive a self driving car should be, and that decision ends up inside a reward function",
+    "Sweeping the collision penalty puts a number on what caution costs in speed",
+    "Transfer to merges and roundabouts tests whether that tuning survives a road the agent never trained on",
   ],
   bullets: [
     "Training DQN agents in highway-env, where surrounding traffic follows the Intelligent Driver and MOBIL models.",
@@ -119,10 +116,10 @@ export const projects: Project[] = [
     domain: "model",
     year: "2026",
     dates: "Jun 2026 · CS 179",
-    lead: "Fifty survey questions go in. Five personality traits come out — without the model being told what to look for.",
+    lead: "Fifty survey questions go in. Five personality traits come out without the model being told what to look for.",
     impact: [
-      "1.00 adjusted Rand index against the known five traits",
-      "64.5% → 77.6% accuracy predicting masked answers",
+      "The model was never told the five traits existed. Community detection recovered all five, scoring a perfect 1.00 against the known labels",
+      "A question's neighbours in the learned graph predict its answer, lifting accuracy from 64.5% to 77.6%",
     ],
     bullets: [
       "Fit a pairwise Ising model with L1 regularisation over 50 items from the openpsychometrics Big Five dataset.",
@@ -142,7 +139,7 @@ export const projects: Project[] = [
     year: "2026",
     dates: "Apr 2026 · LA Hacks",
     lead: "Type and drive media playback with hand signs alone. No keyboard, no mouse.",
-    impact: ["97% typing accuracy across the testing round"],
+    impact: ["97% typing accuracy in testing, which is the line between something usable and a demo"],
     bullets: [
       "Built the interface and media controls so users can type and run playback entirely by hand sign.",
       "Tuned detection for the letter pairs that get confused most, then led the testing that put accuracy at 97%.",
